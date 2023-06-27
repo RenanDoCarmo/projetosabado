@@ -4,17 +4,46 @@
  */
 package com.mycompany.projetosabado;
 
+import Entidades.Departamento;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author aluno
  */
 public class frult extends javax.swing.JFrame {
+    
+    ArrayList<Departamento> ListaDep;
+    
+    public void LoadTableDep(){
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Código","Nome"},0);
+            
+            
+        for(int i=0;i<ListaDep.size();i++){
+            Object linha[] = new Object[]{ListaDep.get(i).getCodigo(),
+                                          ListaDep.get(i).getNome()};
+            modelo.addRow(linha);
+        }
+        
+        tbl_dep_dpts.setModel(modelo);
+        tbl_dep_dpts.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbl_dep_dpts.getColumnModel().getColumn(1).setPreferredWidth(200);
+    }
+    
 
     /**
      * Creates new form NewJFrame
      */
     public frult() {
         initComponents();
+        setLocationRelativeTo(null);
+        ListaDep = new ArrayList();
+        btn_dep_salvar.setEnabled(false);
+        btn_dep_cancelar.setEnabled(false);
+        c_dep_codigo.setEnabled(false);
+        c_dep_nome.setEnabled(false);
+
     }
 
     /**
@@ -26,17 +55,17 @@ public class frult extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabela = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_dep_dpts = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         lbcodigoD = new javax.swing.JLabel();
         lbnomeD = new javax.swing.JLabel();
-        edtcodigoD = new javax.swing.JTextField();
-        editnomeD = new javax.swing.JTextField();
-        btnsalvarD = new javax.swing.JButton();
-        btncancelarD = new javax.swing.JButton();
+        c_dep_codigo = new javax.swing.JTextField();
+        c_dep_nome = new javax.swing.JTextField();
+        btn_dep_salvar = new javax.swing.JButton();
+        btn_dep_cancelar = new javax.swing.JButton();
         btnnovoD = new javax.swing.JButton();
         btneditarD = new javax.swing.JButton();
         btnexcluirD = new javax.swing.JButton();
@@ -58,7 +87,7 @@ public class frult extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_dep_dpts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -77,7 +106,8 @@ public class frult extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tbl_dep_dpts.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tbl_dep_dpts);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados"));
 
@@ -85,21 +115,31 @@ public class frult extends javax.swing.JFrame {
 
         lbnomeD.setText("Nome:");
 
-        edtcodigoD.addActionListener(new java.awt.event.ActionListener() {
+        c_dep_codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtcodigoDActionPerformed(evt);
+                c_dep_codigoActionPerformed(evt);
             }
         });
 
-        editnomeD.addActionListener(new java.awt.event.ActionListener() {
+        c_dep_nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editnomeDActionPerformed(evt);
+                c_dep_nomeActionPerformed(evt);
             }
         });
 
-        btnsalvarD.setText("Salvar");
+        btn_dep_salvar.setText("Salvar");
+        btn_dep_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_salvarActionPerformed(evt);
+            }
+        });
 
-        btncancelarD.setText("Cancelar");
+        btn_dep_cancelar.setText("Cancelar");
+        btn_dep_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -113,16 +153,16 @@ public class frult extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(lbcodigoD)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(edtcodigoD, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(c_dep_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(lbnomeD)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(editnomeD, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(c_dep_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(87, 87, 87)
-                        .addComponent(btnsalvarD)
+                        .addComponent(btn_dep_salvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btncancelarD)))
+                        .addComponent(btn_dep_cancelar)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -131,15 +171,15 @@ public class frult extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbcodigoD)
-                    .addComponent(edtcodigoD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_dep_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbnomeD)
-                    .addComponent(editnomeD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_dep_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnsalvarD)
-                    .addComponent(btncancelarD))
+                    .addComponent(btn_dep_salvar)
+                    .addComponent(btn_dep_cancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -151,8 +191,18 @@ public class frult extends javax.swing.JFrame {
         });
 
         btneditarD.setText("Editar");
+        btneditarD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarDActionPerformed(evt);
+            }
+        });
 
         btnexcluirD.setText("Excluir");
+        btnexcluirD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexcluirDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -187,7 +237,7 @@ public class frult extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("departamentos", jPanel1);
+        tabela.addTab("departamentos", jPanel1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -316,32 +366,40 @@ public class frult extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Funcionários", jPanel2);
+        tabela.addTab("Funcionários", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabela)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabela)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void edtcodigoDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtcodigoDActionPerformed
+    private void c_dep_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_dep_codigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_edtcodigoDActionPerformed
+    }//GEN-LAST:event_c_dep_codigoActionPerformed
 
-    private void editnomeDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editnomeDActionPerformed
+    private void c_dep_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_dep_nomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_editnomeDActionPerformed
+    }//GEN-LAST:event_c_dep_nomeActionPerformed
 
     private void btnnovoDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnovoDActionPerformed
         // TODO add your handling code here:
+        c_dep_codigo.setText("");
+        c_dep_nome.setText("");
+        
+        btn_dep_salvar.setEnabled(true);
+        btn_dep_cancelar.setEnabled(true);
+        c_dep_codigo.setEnabled(true);
+        c_dep_nome.setEnabled(true);
+        
     }//GEN-LAST:event_btnnovoDActionPerformed
 
     private void edtnomeFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtnomeFActionPerformed
@@ -349,12 +407,39 @@ public class frult extends javax.swing.JFrame {
     }//GEN-LAST:event_edtnomeFActionPerformed
 
     private void btnsalvarFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarFActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
     }//GEN-LAST:event_btnsalvarFActionPerformed
 
     private void btneditarFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btneditarFActionPerformed
+
+    private void btn_dep_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_salvarActionPerformed
+        // TODO add your handling code here:
+        int cod = Integer.parseInt(c_dep_codigo.getText());
+        Departamento D = new Departamento(cod, c_dep_nome.getText());
+        ListaDep.add(D);
+        
+        LoadTableDep();
+    }//GEN-LAST:event_btn_dep_salvarActionPerformed
+
+    private void btn_dep_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_cancelarActionPerformed
+        // TODO add your handling code here:
+        btn_dep_salvar.setEnabled(false);
+        btn_dep_cancelar.setEnabled(false);
+    }//GEN-LAST:event_btn_dep_cancelarActionPerformed
+
+    private void btneditarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarDActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_btneditarDActionPerformed
+
+    private void btnexcluirDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirDActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_btnexcluirDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,7 +478,8 @@ public class frult extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btncancelarD;
+    private javax.swing.JButton btn_dep_cancelar;
+    private javax.swing.JButton btn_dep_salvar;
     private javax.swing.JButton btncancelarF;
     private javax.swing.JButton btneditarD;
     private javax.swing.JButton btneditarF;
@@ -401,10 +487,9 @@ public class frult extends javax.swing.JFrame {
     private javax.swing.JButton btnexcluirF;
     private javax.swing.JButton btnnovoD;
     private javax.swing.JButton btnnovoF;
-    private javax.swing.JButton btnsalvarD;
     private javax.swing.JButton btnsalvarF;
-    private javax.swing.JTextField editnomeD;
-    private javax.swing.JTextField edtcodigoD;
+    private javax.swing.JTextField c_dep_codigo;
+    private javax.swing.JTextField c_dep_nome;
     private javax.swing.JTextField edtmatriculaF;
     private javax.swing.JTextField edtnomeF;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -414,13 +499,13 @@ public class frult extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel lbcodigoD;
     private javax.swing.JLabel lbdepF;
     private javax.swing.JLabel lbmatriculaF;
     private javax.swing.JLabel lbnomeD;
     private javax.swing.JLabel lbnomeF;
+    private javax.swing.JTabbedPane tabela;
+    private javax.swing.JTable tbl_dep_dpts;
     // End of variables declaration//GEN-END:variables
 }
